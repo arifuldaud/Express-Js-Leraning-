@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 
 import {  pool } from "./db/data.js";
 import { userRoute } from "./modules/users/user.route.js";
+import { profileRoute } from "./modules/users/profile/profile.route.js";
 
 const app : Application = express()
 
@@ -24,7 +25,6 @@ console.log(req)
 });
 
 app.use("/api/v1/users",userRoute);
-
+app.use("/api/v1/profiles",profileRoute);
 export default app;
 
-// Server Listen
