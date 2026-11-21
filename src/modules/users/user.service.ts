@@ -2,15 +2,22 @@
 import { AsyncLocalStorage } from "async_hooks";
 import { pool } from "../../db/data.js";
 import type { IUser } from "./user.interface.js";
+import bcrypt from "bcryptjs";
 
 const createUserIntoDB = async (payLoad:IUser) =>{
 
+
+
+
         const { name, email, age, password } = payLoad;
 
+
+const hash = await bcrypt.hash(password,10);
+console.log(hash);
         const result = await pool.query(`
             INSERT INTO users(name, email, password, age)
             VALUES($1, $2, $3, $4)
-            RETURNING *
+            RETURNING name,email,age
         `, [name, email, password, age]);
         return result;
 }
