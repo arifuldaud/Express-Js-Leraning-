@@ -12,13 +12,14 @@ const createUserIntoDB = async (payLoad:IUser) =>{
         const { name, email, age, password } = payLoad;
 
 
-const hash = await bcrypt.hash(password,10);
+const hashPassword = await bcrypt.hash(password,10);
 console.log(hash);
+
         const result = await pool.query(`
             INSERT INTO users(name, email, password, age)
             VALUES($1, $2, $3, $4)
             RETURNING name,email,age
-        `, [name, email, password, age]);
+        `, [name, email, hashPassword, age]);
         return result;
 }
  
