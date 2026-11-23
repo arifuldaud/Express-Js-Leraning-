@@ -26,5 +26,9 @@ console.log(req)
 
 app.use("/api/v1/users",userRoute);
 app.use("/api/v1/profiles",profileRoute);
+
+app.use("/api/v1/auth",authRout)
+
+
 export default app;
 
