@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 import {  pool } from "./db/data.js";
 import { userRoute } from "./modules/users/user.route.js";
 import { profileRoute } from "./modules/users/profile/profile.route.js";
-
+import { authRoute } from "./modules/users/auth/auth.route.js";
 const app : Application = express()
 
 app.use(express.json());
@@ -27,7 +27,7 @@ console.log(req)
 app.use("/api/v1/users",userRoute);
 app.use("/api/v1/profiles",profileRoute);
 
-app.use("/api/v1/auth",authRout)
+app.use("/api/v1/auth",authRoute);
 
 
 export default app;
