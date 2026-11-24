@@ -1,34 +1,46 @@
-import config  from "./config/index.js";
-import express, { type Application, type Response,type Request, urlencoded, application } 
-from 'express';
-import { pathToFileURL } from 'node:url';
+import express, {
+    type Application,
+    type Response,
+    type Request
+} from "express";
 
-import {  pool } from "./db/data.js";
 import { userRoute } from "./modules/users/user.route.js";
 import { profileRoute } from "./modules/users/profile/profile.route.js";
 import { authRoute } from "./modules/users/auth/auth.route.js";
-const app : Application = express()
+
+import fs from "fs"
+
+const app: Application = express();
 
 app.use(express.json());
-app.use(express.text());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req:Request, res:Response) => {
- // res.send('Hello World!')
-console.log(req)
-  res.status(200).json({ 
-    success: "True",
-    message:"this is home",
-    author : "DaudBD",
-    age : 20
+// Application middleware
+// Application middleware
+app.use((req, res, next) => {
+
+    const log = `\nMethod: ${req.method} | URL: ${req.url} | Time: ${Date.now()}\n`;
+
+    fs.appendFile("logger.txt", log, (err) => {
+        if (err) {
+            console.log("Log Error:", err);
+        }
+    });
+
+    next();
+});
+
+app.get("/", (req: Request, res: Response) => {
+    res.status(200).json({
+        success: true,
+        message: "This is home",
+        author: "DaudBD",
+        age: 20
     });
 });
 
-app.use("/api/v1/users",userRoute);
-app.use("/api/v1/profiles",profileRoute);
-
-app.use("/api/v1/auth",authRoute);
-
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/profiles", profileRoute);
+app.use("/api/v1/auth", authRoute);
 
 export default app;
-
