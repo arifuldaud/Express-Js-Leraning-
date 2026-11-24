@@ -1,6 +1,6 @@
-
 import bcrypt from "bcryptjs";
 import { pool } from "../../../db/data.js";
+import jwt from "jsonwebtoken";
 
 const loginUserIntoDB = async (
     payLoad: { email: string; password: string }
@@ -12,26 +12,46 @@ const loginUserIntoDB = async (
         [email]
     );
 
-    console.log(user.rows[0]);
+    const userData = user.rows[0];
 
-    if (user.rowCount === 0) {
-        throw new Error("Invaild Credentials");
+    if (!userData) {
+        throw new Error("Invalid Credentials");
     }
 
-   const matchPassword=await bcrypt.compare(password,user.rows[0].password)
+    const matchPassword = await bcrypt.compare(
+        password,
+        userData.password
+    );
 
-
-  if (!matchPassword) {
-        throw new Error("Invaild Credentials");
+    if (!matchPassword) {
+        throw new Error("Invalid Credentials");
     }
 
-//console.log(!user.rows[0].is_Active)
-     if (!user.rows[0].is_active) {
+    if (!userData.is_active) {
         throw new Error("Access Denied");
     }
 
+    const jwtPayload = {
+        id: userData.id,
+        name: userData.name,
+        email: userData.email,
+    };
+
+    const secret = process.env.JWT_SECRET;
+
+    if (!secret) {
+        throw new Error("JWT_SECRET is not configured");
+    }
+
+    const accessToken = jwt.sign(jwtPayload, secret, {
+        expiresIn: "1d",
+    });
+
+    return {
+        accessToken,user:user.rows[0]
+    };
 };
 
 export const authService = {
-    loginUserIntoDB
+    loginUserIntoDB,
 };
