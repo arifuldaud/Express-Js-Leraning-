@@ -6,14 +6,10 @@ import bcrypt from "bcryptjs";
 
 const createUserIntoDB = async (payLoad:IUser) =>{
 
-
-
-
-        const { name, email, age, password } = payLoad;
-
+const { name, email, age, password } = payLoad;
 
 const hashPassword = await bcrypt.hash(password,10);
-console.log(hash);
+//console.log(hash);
 
         const result = await pool.query(`
             INSERT INTO users(name, email, password, age)

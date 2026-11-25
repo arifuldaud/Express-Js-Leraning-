@@ -48,8 +48,14 @@ const loginUserIntoDB = async (
     });
 
     return {
-        accessToken,user:user.rows[0]
-    };
+    accessToken,
+    user: {
+        id: userData.id,
+        name: userData.name,
+        email: userData.email,
+        is_active: userData.is_active
+    }
+};
 };
 
 export const authService = {

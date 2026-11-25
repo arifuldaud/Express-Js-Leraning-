@@ -1,2 +1,28 @@
 Method: GET | URL: / | Time: 1795548977759Method: GET | URL: /api/v1/users | Time: 1795548992918Method: GET | URL: /api/v1/users | Time: 1795549134067Method: GET | URL: / | Time: 1795549158513
 Method: GET | URL: / | Time: 1795549255132
+
+Method: GET | URL: /api/v1/users | Time: 1795571012643
+
+Method: GET | URL: /favicon.ico | Time: 1795571013392
+
+Method: GET | URL: /api/v1/profile | Time: 1795571019712
+
+Method: GET | URL: /api/v1/users | Time: 1795571503851
+
+Method: GET | URL: /api/v1/users | Time: 1795572299522
+
+Method: GET | URL: /api/v1/users | Time: 1795572329416
+
+Method: POST | URL: /api/v1/auth/login | Time: 1795572795367
+
+Method: POST | URL: /api/v1/auth/login | Time: 1795572814447
+
+Method: POST | URL: /api/v1/auth/login/ | Time: 1795572847598
+
+Method: POST | URL: /api/v1/auth/login/ | Time: 1795572899683
+
+Method: POST | URL: /api/v1/auth/login | Time: 1795572909273
+
+Method: POST | URL: /api/v1/auth/login | Time: 1795573002117
+
+Method: POST | URL: /api/v1/auth/login | Time: 1795573118280
